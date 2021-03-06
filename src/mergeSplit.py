@@ -49,7 +49,6 @@ def getMergedTree(state, info, d1, d2):
 def mergeSplit(state, info):
     '''Returns a single merge-split step with associated probability,
        not including spanning trees.'''
-    print("begin merge-split")
     newdistricts = {}
     districtAdj, borderEdges = findDistrictAdj(state)
     d1, d2 = proposeAdjDists(districtAdj, info)
@@ -81,7 +80,6 @@ def mergeSplit(state, info):
     districts[d1] = oldD[0]
     districts[d2] = oldD[1]
     state["nodeToDistrict"] = oldAssignment
-    print("middle mergesplit")
 
     p =  (1.0/len(newdistrictAdj[d1]) + 1.0/len(newdistrictAdj[d2])) \
         /(1.0/len(districtAdj[d1]) + 1.0/len(districtAdj[d2])) 
@@ -99,7 +97,6 @@ def mergeSplit(state, info):
     newdistricts["districts"] = {d1 : graph.subgraph(newD[0].nodes), 
                                  d2 : graph.subgraph(newD[1].nodes)}
     newdistricts["nodeToDistrict"] = newAssignment
-    print("end merge-split")
 
     return (newdistricts, p, d1, d2)
 
