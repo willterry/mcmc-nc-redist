@@ -25,6 +25,8 @@ def setMetaData(path, metaDataFile, borderKey, delim = '\t', auxFields = {}):
 
     with open(metaDataPath) as mdp:
         for line in mdp:
+            if line[0] == "#":
+                continue
             dat, file, ID, col = line.rstrip().split(delim)
             ID = [int(i) for i in ID.split(':')[-1].split(",")]
             col = [int(c) for c in col.split(':')[-1].split(",")]
@@ -51,6 +53,8 @@ def initializeGraph(metaData, delim = '\t'):
     borderKey = metaData["BorderKey"]
     with open(path) as f:
         for line in f:
+            if line[0] == "#":
+                continue
             L = line.strip().split(delim)
             if borderKey not in L and float(L[col]) > 0:
                 G.add_edge(L[id1], L[id2])
@@ -69,6 +73,8 @@ def setNodeData(G, md, metaData, delim = '\t'):
     path, [ID], cols = metaData
     with open(path) as mdf:
         for line in mdf:
+            if line[0] == "#":
+                continue
             L = line.rstrip().split(delim)
             try:
                 fid, dat = L[ID], [float(L[c]) for c in cols]
